@@ -10,9 +10,9 @@ El objetivo es ejecutar ambos algoritmos sobre los mismos conjuntos de datos, me
 
 ## Objetivo
 
-Analizar el comportamiento de dos algoritmos de ordenamiento utilizando una misma base de datos de entrada en distintos lenguajes, para poder realizar una comparación justa de rendimiento.
+Analizar el comportamiento de dos algoritmos de ordenamiento utilizando una misma base de datos de entrada en distintos lenguajes, para realizar una comparación justa de rendimiento.
 
-## Estructura real del proyecto
+## Estructura del proyecto
 
 ```text
 .
@@ -37,6 +37,9 @@ Analizar el comportamiento de dos algoritmos de ordenamiento utilizando una mism
 │   ├── arrays_100000.csv
 │   ├── arrays_500000.csv
 │   └── arrays_1000000.csv
+├── Cuadros
+│   ├── cuadro_comparativo_bucket.csv
+│   └── cuadro_comparativo_radix.csv
 ├── Reportes
 │   ├── bucket_c_100.txt
 │   ├── bucket_java_100.txt
@@ -45,16 +48,13 @@ Analizar el comportamiento de dos algoritmos de ordenamiento utilizando una mism
 │   ├── radix_c_1000000.txt
 │   ├── radix_java_1000000.txt
 │   └── radix_prolog_1000000.txt
-├── cuadro
-├── cuadro_comparativo_bucket.csv
-├── cuadro_comparativo_radix.csv
 ├── generar_cuadros.py
 ├── generate_many_arrays.py
 ├── run.sh
 └── README.md
 ```
 
-## Descripción de las carpetas y archivos
+## Descripción de carpetas y archivos
 
 ### `Algoritmos/`
 Contiene las implementaciones de los algoritmos en los distintos lenguajes.
@@ -66,7 +66,7 @@ Contiene las implementaciones de los algoritmos en los distintos lenguajes.
 - `Bucket.class` y `Radix.class`: clases compiladas de Java.
 
 ### `ArreglosCSV/`
-Contiene los archivos de entrada utilizados en las pruebas. Cada archivo representa un arreglo de números enteros separados por comas.
+Contiene los archivos de entrada usados en las pruebas. Cada archivo representa un arreglo de números enteros separados por comas.
 
 Ejemplos:
 - `arrays_100.csv`
@@ -90,17 +90,21 @@ radix_java_100000.txt
 bucket_prolog_1000000.txt
 ```
 
-### `generar_cuadros.py`
-Procesa los reportes generados y arma cuadros comparativos para cada algoritmo.
+### `Cuadros/`
+Contiene los archivos `.csv` comparativos generados por `generar_cuadros.py`.
+
+Archivos esperados:
+- `cuadro_comparativo_bucket.csv`
+- `cuadro_comparativo_radix.csv`
 
 ### `generate_many_arrays.py`
 Genera múltiples archivos `.csv` con distintos tamaños de entrada para realizar las pruebas.
 
+### `generar_cuadros.py`
+Procesa los reportes generados dentro de `Reportes/` y guarda los cuadros comparativos en la carpeta `Cuadros/`.
+
 ### `run.sh`
 Script principal que automatiza la compilación y ejecución de los benchmarks.
-
-### `cuadro_comparativo_bucket.csv` y `cuadro_comparativo_radix.csv`
-Archivos generados automáticamente con los resultados consolidados, pensados para abrirse en hojas de cálculo.
 
 ## Requisitos
 
@@ -153,7 +157,7 @@ Durante la ejecución, se toman los archivos de `ArreglosCSV/`, se compilan los 
 
 ### 4. Generar cuadros comparativos
 
-Una vez que los reportes fueron creados:
+Una vez creados los reportes:
 
 ```bash
 python3 generar_cuadros.py
@@ -163,7 +167,9 @@ Este script analiza los archivos de `Reportes/` y genera:
 
 - un cuadro comparativo para **Bucket Sort**
 - un cuadro comparativo para **Radix Sort**
-- los archivos `cuadro_comparativo_bucket.csv` y `cuadro_comparativo_radix.csv`
+- los archivos dentro de `Cuadros/`:
+  - `cuadro_comparativo_bucket.csv`
+  - `cuadro_comparativo_radix.csv`
 
 ## Formato de entrada
 

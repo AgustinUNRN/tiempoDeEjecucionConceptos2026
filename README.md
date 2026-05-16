@@ -1,46 +1,106 @@
 # Benchmark de Algoritmos de Ordenamiento
 
-Este proyecto permite ejecutar y comparar pruebas de rendimiento de dos algoritmos de ordenamiento:
-
-- **Bucket Sort**
-- **Radix Sort**
-
-Las implementaciones están desarrolladas en:
+Este proyecto implementa y compara el rendimiento de **Bucket Sort** y **Radix Sort** en tres lenguajes:
 
 - **C**
 - **Java**
 - **Prolog**
 
-El objetivo es medir tiempos de ejecución usando los mismos archivos de entrada en formato `.csv`, de manera que la comparación entre lenguajes y algoritmos sea consistente.
+El objetivo es ejecutar ambos algoritmos sobre los mismos conjuntos de datos, medir sus tiempos de ejecución y generar reportes comparativos entre lenguajes y tamaños de entrada.
 
-## Estructura del proyecto
+## Objetivo
+
+Analizar el comportamiento de dos algoritmos de ordenamiento utilizando una misma base de datos de entrada en distintos lenguajes, para poder realizar una comparación justa de rendimiento.
+
+## Estructura real del proyecto
 
 ```text
 .
-├── Algoritmos/
+├── Algoritmos
+│   ├── bucket
 │   ├── bucket.c
-│   ├── radix.c
+│   ├── Bucket.class
 │   ├── Bucket.java
-│   ├── Radix.java
 │   ├── bucket.pl
+│   ├── radix
+│   ├── radix.c
+│   ├── Radix.class
+│   ├── Radix.java
 │   └── radix.pl
-├── ArreglosCSV/
-│   ├── datos_1000.csv
-│   ├── datos_50000.csv
-│   └── ...
-├── Reportes/
-├── run.sh
+├── ArreglosCSV
+│   ├── arrays_100.csv
+│   ├── arrays_500.csv
+│   ├── arrays_1000.csv
+│   ├── arrays_5000.csv
+│   ├── arrays_10000.csv
+│   ├── arrays_50000.csv
+│   ├── arrays_100000.csv
+│   ├── arrays_500000.csv
+│   └── arrays_1000000.csv
+├── Reportes
+│   ├── bucket_c_100.txt
+│   ├── bucket_java_100.txt
+│   ├── bucket_prolog_100.txt
+│   ├── ...
+│   ├── radix_c_1000000.txt
+│   ├── radix_java_1000000.txt
+│   └── radix_prolog_1000000.txt
+├── cuadro
+├── cuadro_comparativo_bucket.csv
+├── cuadro_comparativo_radix.csv
 ├── generar_cuadros.py
+├── generate_many_arrays.py
+├── run.sh
 └── README.md
 ```
 
-## ¿Qué hace el proyecto?
+## Descripción de las carpetas y archivos
 
-1. Toma archivos `.csv` con listas de números enteros.
-2. Ejecuta los algoritmos seleccionados sobre esos datos.
-3. Mide el tiempo de ejecución.
-4. Guarda los resultados en archivos dentro de `Reportes/`.
-5. Permite consolidar los resultados en cuadros comparativos.
+### `Algoritmos/`
+Contiene las implementaciones de los algoritmos en los distintos lenguajes.
+
+- `bucket.c` y `radix.c`: versiones en C.
+- `Bucket.java` y `Radix.java`: versiones en Java.
+- `bucket.pl` y `radix.pl`: versiones en Prolog.
+- `bucket` y `radix`: ejecutables compilados de C.
+- `Bucket.class` y `Radix.class`: clases compiladas de Java.
+
+### `ArreglosCSV/`
+Contiene los archivos de entrada utilizados en las pruebas. Cada archivo representa un arreglo de números enteros separados por comas.
+
+Ejemplos:
+- `arrays_100.csv`
+- `arrays_1000.csv`
+- `arrays_1000000.csv`
+
+### `Reportes/`
+Guarda los archivos `.txt` generados luego de cada ejecución del benchmark.
+
+El nombre de cada reporte sigue esta estructura:
+
+```text
+algoritmo_lenguaje_tamano.txt
+```
+
+Ejemplos:
+
+```text
+bucket_c_5000.txt
+radix_java_100000.txt
+bucket_prolog_1000000.txt
+```
+
+### `generar_cuadros.py`
+Procesa los reportes generados y arma cuadros comparativos para cada algoritmo.
+
+### `generate_many_arrays.py`
+Genera múltiples archivos `.csv` con distintos tamaños de entrada para realizar las pruebas.
+
+### `run.sh`
+Script principal que automatiza la compilación y ejecución de los benchmarks.
+
+### `cuadro_comparativo_bucket.csv` y `cuadro_comparativo_radix.csv`
+Archivos generados automáticamente con los resultados consolidados, pensados para abrirse en hojas de cálculo.
 
 ## Requisitos
 
@@ -52,53 +112,62 @@ Para ejecutar el proyecto en Linux, necesitás tener instalado:
 - `python3`
 - `bash`
 
-Ejemplo en Ubuntu/Debian:
+En Debian o Ubuntu:
 
 ```bash
 sudo apt update
 sudo apt install build-essential default-jdk swi-prolog python3
 ```
 
-## Uso
+## Flujo de trabajo
 
-### 1. Dar permisos al script principal
+### 1. Generar arreglos de prueba
+
+Si querés crear nuevamente los conjuntos de datos:
+
+```bash
+python3 generate_many_arrays.py
+```
+
+Esto genera archivos `.csv` dentro de `ArreglosCSV/` con distintos tamaños de entrada.
+
+### 2. Dar permisos al script principal
 
 ```bash
 chmod +x run.sh
 ```
 
-### 2. Ejecutar el benchmark
+### 3. Ejecutar las pruebas
 
 ```bash
 ./run.sh
 ```
 
-El script permite elegir:
+El script permite seleccionar:
 
-- lenguaje
-- algoritmo
+- el lenguaje
+- el algoritmo
 - o ejecutar todas las combinaciones disponibles
 
-Durante la ejecución, se procesan los archivos `.csv` de `ArreglosCSV/` y se generan reportes en la carpeta `Reportes/`.
+Durante la ejecución, se toman los archivos de `ArreglosCSV/`, se compilan los programas necesarios y se guardan los tiempos medidos en `Reportes/`.
 
-## Generación de cuadros comparativos
+### 4. Generar cuadros comparativos
 
-Una vez generados los reportes, podés consolidarlos ejecutando:
+Una vez que los reportes fueron creados:
 
 ```bash
 python3 generar_cuadros.py
 ```
 
-Este script procesa los archivos de `Reportes/` y genera cuadros comparativos para:
+Este script analiza los archivos de `Reportes/` y genera:
 
-- Bucket Sort
-- Radix Sort
+- un cuadro comparativo para **Bucket Sort**
+- un cuadro comparativo para **Radix Sort**
+- los archivos `cuadro_comparativo_bucket.csv` y `cuadro_comparativo_radix.csv`
 
-Además, crea archivos `.csv` listos para usar en hojas de cálculo.
+## Formato de entrada
 
-## Formato esperado de entrada
-
-Los archivos dentro de `ArreglosCSV/` deben contener números enteros separados por comas.
+Los archivos `.csv` deben contener números enteros positivos separados por comas.
 
 Ejemplo:
 
@@ -106,23 +175,10 @@ Ejemplo:
 5,8,1,10,3,7
 ```
 
-## Salida
+## Resultado esperado
 
-Los resultados de cada ejecución se guardan en la carpeta `Reportes/`.
-
-El nombre de los archivos puede seguir una lógica similar a:
-
-```text
-algoritmo_lenguaje_tamano.txt
-```
-
-Por ejemplo:
-
-```text
-bucket_c_1000.txt
-radix_java_50000.txt
-```
+El proyecto permite obtener mediciones comparables entre implementaciones de un mismo algoritmo en diferentes lenguajes, y luego consolidarlas para analizarlas o graficarlas.
 
 ## Propósito académico
 
-Este proyecto fue desarrollado con fines académicos para analizar el comportamiento de distintos algoritmos de ordenamiento en diferentes lenguajes de programación, utilizando una misma base de datos de entrada para asegurar comparaciones justas.
+Este trabajo fue realizado con fines académicos para estudiar diferencias de rendimiento entre lenguajes de programación y algoritmos de ordenamiento, utilizando el mismo conjunto de datos como entrada en todos los casos.

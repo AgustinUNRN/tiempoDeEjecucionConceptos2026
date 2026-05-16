@@ -1,0 +1,4 @@
+Algoritmo: radix
+Lenguaje: java
+Tamaño del archivo: 500000
+Tiempo (ms): 75

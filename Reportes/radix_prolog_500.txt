@@ -1,0 +1,4 @@
+Algoritmo: radix
+Lenguaje: prolog
+Tamaño del archivo: 500
+Tiempo (ms): 9

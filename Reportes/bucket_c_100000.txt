@@ -1,0 +1,4 @@
+Algoritmo: bucket
+Lenguaje: c
+Tamaño del archivo: 100000
+Tiempo (ms): 10

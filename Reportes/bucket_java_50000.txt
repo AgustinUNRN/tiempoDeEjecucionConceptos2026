@@ -1,0 +1,4 @@
+Algoritmo: bucket
+Lenguaje: java
+Tamaño del archivo: 50000
+Tiempo (ms): 28

@@ -1,0 +1,4 @@
+Algoritmo: bucket
+Lenguaje: prolog
+Tamaño del archivo: 1000
+Tiempo (ms): 11

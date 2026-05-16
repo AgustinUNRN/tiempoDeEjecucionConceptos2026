@@ -1,0 +1,4 @@
+Algoritmo: radix
+Lenguaje: c
+Tamaño del archivo: 50000
+Tiempo (ms): 4
